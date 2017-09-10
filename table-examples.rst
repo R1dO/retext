@@ -1,27 +1,27 @@
 .. table:: Cells do not span rows or columns
 
-   +-------------+------------------------------------------------------------------------+
-   | Header      | If this is 2 rows, it will show the same error                         |
-   +=============+========================================================================+
-   | single line | All is still good                                                      |
-   +-------------+------------------------------------------------------------------------+
-   | 1st double  | Next one will break when changing text.                                |
-   |             | This line makes sure breakage is not due to an empty line              |
-   +-------------+------------------------------------------------------------------------+
-   | single line | Will still show a wrong line                                           |
-   +-------------+------------------------------------------------------------------------+
-   | 2nd double  | Lines are odd again, everything will be fine for the next one          |
-   |             |                                                                        |
-   +-------------+------------------------------------------------------------------------+
-   | single line | Everything ok                                                          |
-   +-------------+------------------------------------------------------------------------+
-   | double again| DELETE ME for demo of error which removes content as well (even line)  |
-   |             | DELETE ME PLEASE To show errors in gridlines on longer lines (odd line)|
-   +-------------+------------------------------------------------------------------------+
-   | single line | INSERT TEXT to demonstrate content will be removed on really long lines|
-   +-------------+------------------------------------------------------------------------+
-   | single line | Just to prove it is not due to being the bottom line                   |
-   +-------------+------------------------------------------------------------------------+
+   +--------+---------------------------------------------------------+
+   | Header | If this is 2 rows, it will show the same error          |
+   +========+=========================================================+
+   | single | All is still good                                       |
+   +--------+---------------------------------------------------------+
+   | double | Next one will break when changing text.                 |
+   |        | Make sure breakage is not due to an empty line          |
+   +--------+---------------------------------------------------------+
+   | single | Will still show a wrong line                            |
+   +--------+---------------------------------------------------------+
+   | double | Lines are odd again, next one will be fine              |
+   |        |                                                         |
+   +--------+---------------------------------------------------------+
+   | single | Everything ok                                           |
+   +--------+---------------------------------------------------------+
+   | double | DELETE ME to remove content as well (even line)         |
+   |        | DELETE ME PLEASE to show errors in gridlines (odd line) |
+   +--------+---------------------------------------------------------+
+   | single | INSERT TEXT to remove content when a line is long       |
+   +--------+---------------------------------------------------------+
+   | single | Just to prove it is not due to being the bottom line    |
+   +--------+---------------------------------------------------------+
 
 
 .. table:: Cells do span rows and columns
