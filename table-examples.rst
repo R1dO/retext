@@ -18,7 +18,7 @@
    | double | DELETE ME to remove content as well (even line)         |
    |        | DELETE ME PLEASE to show errors in gridlines (odd line) |
    +--------+---------------------------------------------------------+
-   | single | INSERT TEXT to remove content when a line is long       |
+   | single | INSERT TEXT to remove content when a line is kinda long |
    +--------+---------------------------------------------------------+
    | single | Just to prove it is not due to being the bottom line    |
    +--------+---------------------------------------------------------+
