@@ -22,14 +22,14 @@ from PyQt5.QtGui import QTextCursor
 LARGER_THAN_ANYTHING = sys.maxsize
 
 class Row:
-	def __init__(self, block=None, text=None, separatorline=False, paddingchar=' '):
+	def __init__(self, block=None, text=None, separatorline=False, currentPaddingChar=' '):
 		self.block = block
 		self.text = text
 		self.separatorline = separatorline
-		self.paddingchar = paddingchar
+		self.currentPaddingChar = currentPaddingChar
 
 	def __repr__(self):
-		return "<Row '%s' %s '%s'>" % (self.text, self.separatorline, self.paddingchar)
+		return "<Row '%s' %s '%s'>" % (self.text, self.separatorline, self.currentPaddingChar)
 
 def _getTableLines(doc, pos, markupClass):
 	startblock = doc.findBlock(pos)
@@ -56,12 +56,12 @@ def _getTableLines(doc, pos, markupClass):
 		for i, row in enumerate(rows):
 			if i == 1:
 				row.separatorline = True
-				row.paddingchar = '-'
+				row.currentPaddingChar = '-'
 	elif markupClass == ReStructuredTextMarkup:
 		for i, row in enumerate(rows):
 			if i & 1 == 0: # i is even
 				row.separatorline = True
-				row.paddingchar = '=' if (i == 2) else '-'
+				row.currentPaddingChar = '=' if (i == 2) else '-'
 				row.text = row.text.replace('+', '|')
 
 	return rows, editedlineindex, offset
@@ -86,7 +86,7 @@ def _determineRoomInCell(row, edge, shrinking, startposition=0):
 			if row.text[i] == '|':
 				break
 			else:
-				if row.text[i] == row.paddingchar and afterContent:
+				if row.text[i] == row.currentPaddingChar and afterContent:
 					clearance += 1
 				else:
 					afterContent = False
@@ -174,7 +174,7 @@ def _performEdits(cursor, rows, editLists, linewithoffset, offset):
 
 			cursor.setPosition(row.block.position() + editpos)
 			if editsize > 0:
-				cursor.insertText(editsize * row.paddingchar)
+				cursor.insertText(editsize * row.currentPaddingChar)
 			else:
 				for _ in range(-editsize):
 					cursor.deletePreviousChar()

@@ -22,20 +22,20 @@ from ReText import tablemode
 
 class TestTableMode(unittest.TestCase):
 
-	def performEdit(self, text, offset, editSize, paddingchar=None, fragment=None):
+	def performEdit(self, text, offset, editSize, currentPaddingChar=None, fragment=None):
 		if editSize < 0:
 			text = text[:offset + editSize] + text[offset:]
 		else:
-			fragment = paddingchar * editSize if not fragment else fragment
+			fragment = currentPaddingChar * editSize if not fragment else fragment
 			text = text[:offset] + fragment + text[offset:]
 		return text
 
 	def checkDetermineEditLists(self, paddingChars, before, edit, after):
 		class Row():
-			def __init__(self, text, separatorLine, paddingChar):
+			def __init__(self, text, separatorLine, currentPaddingChar):
 				self.text = text
 				self.separatorline = separatorLine
-				self.paddingchar = paddingChar
+				self.currentPaddingChar = currentPaddingChar
 
 
 		# Do some sanity checks on the test data to catch simple mistakes
@@ -82,7 +82,7 @@ class TestTableMode(unittest.TestCase):
 			editedText = row.text
 
 			for editEntry in editList:
-				editedText = self.performEdit(editedText, editEntry[0], editEntry[1], paddingchar=row.paddingchar)
+				editedText = self.performEdit(editedText, editEntry[0], editEntry[1], currentPaddingChar=row.currentPaddingChar)
 
 			editedRows.append(editedText)
 
