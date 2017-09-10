@@ -57,12 +57,6 @@ def _getTableLines(doc, pos, markupClass):
 			if i == 1:
 				row.separatorline = True
 				row.paddingchar = '-'
-	elif markupClass == ReStructuredTextMarkup:
-		for i, row in enumerate(rows):
-			if i & 1 == 0: # i is even
-				row.separatorline = True
-				row.paddingchar = '=' if (i == 2) else '-'
-				row.text = row.text.replace('+', '|')
 
 	return rows, editedlineindex, offset
 
@@ -181,7 +175,7 @@ def _performEdits(cursor, rows, editLists, linewithoffset, offset):
 	cursor.endEditBlock()
 
 def adjustTableToChanges(doc, pos, editsize, markupClass):
-	if markupClass in (MarkdownMarkup, ReStructuredTextMarkup):
+	if markupClass == MarkdownMarkup:
 		rows, editedlineindex, offset = _getTableLines(doc, pos, markupClass)
 
 		_sortaUndoEdit(rows, editedlineindex, editsize)
@@ -190,6 +184,19 @@ def adjustTableToChanges(doc, pos, editsize, markupClass):
 
 		cursor = QTextCursor(doc)
 		_performEdits(cursor, rows, editLists, editedlineindex, editsize)
+	elif markupClass == ReStructuredTextMarkup:
+		rows, editedlineindex, offset = _getTableLines(doc, pos, markupClass)
+		inTable = []
+		for row in rows:
+			inTable.append(row.text)
+
+		from docutils.parsers.rst import tableparser
+		from docutils import statemachine
+		parser = tableparser.GridTableParser()
+		table = parser.parse(statemachine.StringList(inTable))
+
+		print(table)
+
 
 def handleReturn(cursor, markupClass, newRow):
 	if markupClass not in (MarkdownMarkup, ReStructuredTextMarkup):
